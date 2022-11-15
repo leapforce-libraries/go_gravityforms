@@ -54,6 +54,10 @@ func (service *Service) httpRequest(requestConfig *go_http.RequestConfig) (*http
 	return service.httpService.HttpRequest(requestConfig)
 }
 
+func (service *Service) url(path string) string {
+	return fmt.Sprintf("%s/%s", fmt.Sprintf(baseUrl, service.domain), path)
+}
+
 func (service *Service) ApiName() string {
 	return apiName
 }

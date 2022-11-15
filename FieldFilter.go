@@ -8,9 +8,9 @@ import (
 )
 
 type FieldFilter struct {
-	Key       string   `json:"key"`
-	Text      string   `json:"text"`
-	Operators []string `json:"operators"`
+	Key       interface{} `json:"key"`
+	Text      string      `json:"text"`
+	Operators []string    `json:"operators"`
 	Values    *[]struct {
 		Text  string `json:"text"`
 		Value string `json:"value"`
@@ -25,7 +25,7 @@ func (service *Service) GetFieldFilters(formId int64) (*[]FieldFilter, *errortoo
 
 	requestConfig := go_http.RequestConfig{
 		Method:        http.MethodGet,
-		Url:           fmt.Sprintf("%s/forms/%v/field-filters", baseUrl, formId),
+		Url:           service.url(fmt.Sprintf("forms/%v/field-filters", formId)),
 		ResponseModel: &fieldFilters,
 	}
 	_, _, e := service.httpRequest(&requestConfig)
